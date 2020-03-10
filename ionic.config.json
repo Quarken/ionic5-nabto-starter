@@ -1,0 +1,7 @@
+{
+  "name": "ionic5-nabto-starter",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
