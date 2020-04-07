@@ -1,0 +1,66 @@
+<!--<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>-->
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/help']">
+        <ion-icon slot="icon-only" name="help"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/settings']">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Overview</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="(shownDevices)?.length === 0">
+    <ion-card-header>
+      No known devices
+    </ion-card-header>
+    <ion-card-content>
+      Add a device using the buttons below:
+      Either scan the local network for
+      available devices or manually enter a
+      device id.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let device of shownDevices" button (click)="deviceTapped(device)" detail="false">
+      <ion-thumbnail slot="start">
+        <img [src]="device.iconUrl" (error)="badImage(device)">
+      </ion-thumbnail>
+      <ion-thumbnail slot="end">
+        <ion-icon [hidden]="!device.reachable" name="checkmark-circle-outline" color="success"
+          class="device_status_icon"></ion-icon>
+        <ion-icon [hidden]="device.reachable" name="alert-circle-outline" color="danger" class="device_status_icon">
+        </ion-icon>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{device.name}}</h2>
+        <p>{{device.description}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" [routerLink]="['/discover-page']">
+    Discover and auto pair with device
+  </ion-button>
+
+  <ion-button expand="block" color="light" (click)="addManually()">
+    Manually pair with device
+  </ion-button>
+
+  <ion-button expand="block" color="light">
+    <ion-icon name="refresh-outline"></ion-icon>
+    Refresh
+  </ion-button>
+</ion-content>

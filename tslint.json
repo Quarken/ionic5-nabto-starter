@@ -4,6 +4,8 @@
     "codelyzer"
   ],
   "rules": {
+    "no-bitwise": false,
+    "triple-equals": false,
     "array-type": false,
     "arrow-parens": false,
     "deprecation": {
