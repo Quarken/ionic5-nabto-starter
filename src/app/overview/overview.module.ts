@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DeviceAddPageModule } from '../device-add/device-add.module';
 
 import { OverviewPage } from './overview.page';
+import { DeviceAddComponent } from '../device-add/device-add.component';
 
 @NgModule({
   imports: [
@@ -17,9 +17,14 @@ import { OverviewPage } from './overview.page';
         path: '',
         component: OverviewPage
       }
-    ]),
-    DeviceAddPageModule,
+    ])
   ],
-  declarations: [OverviewPage]
+  declarations: [
+    OverviewPage,
+    DeviceAddComponent
+  ],
+  entryComponents: [
+    DeviceAddComponent
+  ]
 })
 export class OverviewPageModule {}

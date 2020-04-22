@@ -6,7 +6,7 @@ import { NabtoService } from '../nabto.service';
 import { Subject, Observable } from 'rxjs';
 import { NabtoDevice } from '../device.class';
 import { ToastOptions } from '@ionic/core';
-import { DeviceAddPage } from '../device-add/device-add.page';
+import { DeviceAddComponent } from '../device-add/device-add.component';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +28,7 @@ export class OverviewPage implements OnInit {
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
               private navCtrl: NavController,
-              private modalCtrl: ModalController) {
+              public modalController: ModalController) {
     this.deviceInfoSource = new Subject<NabtoDevice[]>();
     this.devices = this.deviceInfoSource.asObservable();
     this.devices.subscribe(next => {
@@ -121,10 +121,10 @@ export class OverviewPage implements OnInit {
   }
 
   async addManually() {
-    const modal = await this.modalCtrl.create({
-      component: DeviceAddPage
+    const modal = await this.modalController.create({
+      component: DeviceAddComponent
     });
-    await modal.present();
+    return await modal.present();
   }
 
   async showAlert(msg: string, title?: string) {
