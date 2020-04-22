@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit {
         this.profileService.storeKeyPairName(name);
         // restarting Nabto to close session with previous key and start new with new one
         this.nabtoService.shutdown().then(() => {
-          console.log('Nabto stopped')
+          console.log('Nabto stopped');
           this.nabtoService.startupAndOpenProfile(name)
             .then(() => {
               console.log('Nabto re-started with profile ' + name);
