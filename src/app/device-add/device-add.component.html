@@ -1,44 +1,45 @@
 <ion-header translucent>
-  <ion-toolbar>
-    <ion-title>Manually Add Device</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>{{ 'ADD_DEVICE.TITLE' | translate }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismiss()">Cancel</ion-button>
+      <ion-button translate (click)="modalController.dismiss()">CANCEL</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
+  <div id="spinner-container" align="center" *ngIf="busy else elseBlock">
+    <ion-spinner id="spinner"></ion-spinner>
+  </div>
+
+  <ng-template #elseBlock>
   <ion-list lines="full" class="ion-no-margin ion-no-padding"></ion-list>
   <ion-item>
-    <ion-label position="stacked">Device ID</ion-label>
+    <ion-label translate position="stacked">DEVICE_ID</ion-label>
     <ion-input placeholder="myserial.mydomain.net" required type="text" [(ngModel)]="deviceId"></ion-input>
   </ion-item>
 
-  <ion-button expand="block" color="light">
-    Scan QR with device ID
+  <ion-button translate expand="block" (click)="add()" [disabled]="deviceId.length == 0">
+    ADD_DEVICE.ADD_BUTTON
   </ion-button>
 
-  <ion-button expand="block" color="light">
-    Clear device ID
+  <ion-button translate expand="block" color="light" (click)="scan()">
+    ADD_DEVICE.SCAN_BUTTON
   </ion-button>
 
-  <ion-button expand="block" [disabled]="deviceId.length == 0">
-    Add device ID
+  <ion-button translate expand="block" color="light" (click)="clear()">
+   ADD_DEVICE.CLEAR_BUTTON
   </ion-button>
 
   <ion-card>
-    <ion-card-header>
-      Access Control
+    <ion-card-header translate>
+      ADD_DEVICE.AC_HEADER
     </ion-card-header>
     <ion-card-content>
-      <p>
-      Your public key fingerprint must be added to the device's
-      Access Control List before you can access the device.
-      The device owner can add this.
-      </p>
-      Share your public key fingerprint here:
-      <ion-button expand="block" color="light">
-        Share public key fingerprint
+      <div [innerHTML]="'ADD_DEVICE.AC_DESC' | translate"></div>
+      <ion-button translate expand="block" color="light" (click)="shareFingerprint()">
+        ADD_DEVICE.AC_BUTTON
       </ion-button>
     </ion-card-content>
   </ion-card>
+</ng-template>
 </ion-content>

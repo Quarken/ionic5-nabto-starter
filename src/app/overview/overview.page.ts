@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { BookmarksService, Bookmark } from '../bookmarks.service';
-import { ProfileService } from '../profile.service';
-import { ModalController, ToastController, AlertController, NavController } from '@ionic/angular';
-import { NabtoService } from '../nabto.service';
-import { Subject, Observable } from 'rxjs';
-import { NabtoDevice } from '../device.class';
-import { ToastOptions } from '@ionic/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AlertController, ModalController, NavController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable, Subject } from 'rxjs';
+import { Bookmark, BookmarksService } from '../bookmarks.service';
 import { DeviceAddComponent } from '../device-add/device-add.component';
+import { NabtoDevice } from '../device.class';
+import { NabtoService } from '../nabto.service';
+import { ProfileService } from '../profile.service';
+import { showToast } from '../util';
+import { Router } from '@angular/router';
+import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'overview.page.html',
   styleUrls: ['overview.page.scss'],
 })
-export class OverviewPage implements OnInit {
+export class OverviewPage implements OnInit, OnDestroy {
   public devices: Observable<NabtoDevice[]>;
   public deviceInfoSource: Subject<NabtoDevice[]>;
   public shownDevices: NabtoDevice[] = [];
@@ -22,26 +25,36 @@ export class OverviewPage implements OnInit {
 
   private profileLoaded = new Subject<void>();
 
-  constructor(private bookmarksService: BookmarksService,
-              private profileService: ProfileService,
-              private nabtoService: NabtoService,
-              private toastCtrl: ToastController,
-              private alertCtrl: AlertController,
-              private navCtrl: NavController,
-              public modalController: ModalController) {
+  constructor(
+    private bookmarksService: BookmarksService,
+    private profileService: ProfileService,
+    private nabtoService: NabtoService,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
+    private navCtrl: NavController,
+    private translate: TranslateService,
+    public modalController: ModalController,
+    public router: Router
+  ) {
     this.deviceInfoSource = new Subject<NabtoDevice[]>();
+  }
+
+  ngOnInit() {
     this.devices = this.deviceInfoSource.asObservable();
     this.devices.subscribe(next => {
       console.log(`Got devices for overview ${JSON.stringify(next)}`);
       this.shownDevices = next;
     });
-  }
 
-  ngOnInit() {
     this.profileLoaded.subscribe(() => this.refresh());
     this.verifyPlumbing()
       .then(() => this.initialize())
       .catch((err) => console.error(`App could not start: ${err.message || err}`));
+  }
+
+  ngOnDestroy() {
+    this.profileLoaded.unsubscribe();
+    this.deviceInfoSource.unsubscribe();
   }
 
   verifyPlumbing(): Promise<void> {
@@ -59,7 +72,7 @@ export class OverviewPage implements OnInit {
             console.log('err.message is undefined');
           }
           if (err && err.message && err.message === 'NABTO_NOT_AVAILABLE') {
-            this.showToast('Installation problem: Nabto SDK not available, please contact vendor', true);
+            this.showToast(this.translate.instant('OVERVIEW.ERROR_NABTO_NOT_AVAILABLE'), true);
           } else {
             console.log('Could not get SDK version: ' + (err.message || err));
           }
@@ -72,23 +85,30 @@ export class OverviewPage implements OnInit {
     });
   }
 
-  initialize() {
-    this.profileService.lookupKeyPairName()
-      .then((name) => {
-        if (name) {
-          console.log(`Initializing using profile [${name}]`);
-          this.initializeWithKeyPair(name);
-        } else {
-          console.log('No profile found, creating');
-          this.nabtoService.startup()
-            .then(() => this.navCtrl.navigateRoot('ProfilePage'))
-            .catch((err) => console.log(`An error occurred: ${err}`));
-        }
-      })
-      .catch((err) => {
-        console.log(`An error occurred: ${err}`);
-        this.navCtrl.navigateRoot('ProfilePage');
-      });
+  async showProfilePage() {
+    const modal = await this.modalController.create({
+      component: ProfileComponent,
+      backdropDismiss: false,
+    });
+
+    return await modal.present();
+  }
+
+  async initialize() {
+    try {
+      const keypairName = await this.profileService.lookupKeyPairName();
+      if (keypairName) {
+        console.log(`Initializing using profile [${keypairName}]`);
+        this.initializeWithKeyPair(keypairName);
+      } else {
+        console.log('No profile found, creating...');
+        await this.nabtoService.startup();
+        await this.showProfilePage();
+      }
+    } catch (err) {
+      console.error(err);
+      // TODO: Show profilepage?
+    }
   }
 
   initializeWithKeyPair(name: string) {
@@ -96,9 +116,10 @@ export class OverviewPage implements OnInit {
       .then(() => this.profileLoaded.next())
       .catch((error) => {
         if (error && error.message && error.message === 'BAD_PROFILE') {
-          this.navCtrl.navigateRoot('ProfilePage');
+          console.error(error.message);
+          this.showProfilePage();
         } else {
-          this.showAlert('App could not start, please contact vendor: ' + error.message || error);
+          this.showAlert(this.translate.instant('ERROR_UNKNOWN') + error.message || error);
         }
       });
   }
@@ -122,8 +143,18 @@ export class OverviewPage implements OnInit {
 
   async addManually() {
     const modal = await this.modalController.create({
-      component: DeviceAddComponent
+      component: DeviceAddComponent,
+      backdropDismiss: false
     });
+
+    modal.onDidDismiss().then(modalOutput => {
+      if (modalOutput.data) {
+        const device = modalOutput.data as NabtoDevice;
+        this.bookmarksService.addBookmarkFromDevice(device);
+        this.deviceInfoSource.next([device]);
+      }
+    });
+
     return await modal.present();
   }
 
@@ -137,24 +168,8 @@ export class OverviewPage implements OnInit {
     await alert.present();
   }
 
-  async showToast(msg: string, stayOnScreen = false) {
-    const options: ToastOptions = {
-      message: msg,
-      buttons: [
-        {
-          side: 'end',
-          icon: 'close-outline',
-          role: 'cancel'
-        }
-      ]
-    };
-
-    if (!stayOnScreen) {
-      options.duration = 3000;
-    }
-
-    const toast = await this.toastCtrl.create(options);
-    toast.present();
+  showToast(msg: string, stayOnScreen = false) {
+    showToast(this.toastCtrl, msg, stayOnScreen);
   }
 
   badImage(device: NabtoDevice) {

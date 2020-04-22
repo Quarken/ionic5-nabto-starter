@@ -178,11 +178,11 @@ export class NabtoService {
   // assumes nabto is available and started
   private injectInterfaceDefinition(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.http.get('nabto/unabto_queries.xml')
+      this.http.get('./assets/unabto_queries.xml', {responseType: 'text'})
         .toPromise()
-        .then((res: Response) => {
+        .then((res: string) => {
           console.log('Got unabto_queries.xml, setting as default');
-          nabto.rpcSetDefaultInterface(res.text(), (err: any) => {
+          nabto.rpcSetDefaultInterface(res, (err: any) => {
             if (!err) {
               console.log('nabto started and interface set ok!');
               resolve(true);
@@ -194,8 +194,8 @@ export class NabtoService {
           });
         })
         .catch((err) => {
-          console.log('Error invoking rpcSetDefaultInterface: ' + err);
-          reject(new Error('Could not load device interface definition: ' + err));
+          console.log('Error invoking rpcSetDefaultInterface: ' + err.message);
+          reject(new Error('Could not load device interface definition: ' + err.message));
         });
     });
   }

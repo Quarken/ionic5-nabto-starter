@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title translate>PROFILE.TITLE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <p translate [translateParams]="translationParams">PROFILE.DESCRIPTION</p>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked" translate>PROFILE.NAME</ion-label>
+      <ion-input required type="text" [(ngModel)]="deviceName" name="title"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button color="primary" expand="block" type="submit" (click)="submit()" translate>
+    CONTINUE
+  </ion-button>
+
+  <ion-button color="light" expand="block" (click)="clear()" translate>
+    CLEAR
+  </ion-button>
+</ion-content>

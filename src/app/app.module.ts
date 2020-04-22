@@ -12,8 +12,16 @@ import { ProfileService } from './profile.service';
 import { NabtoService } from './nabto.service';
 import { BookmarksService } from './bookmarks.service';
 import { IonicStorageModule } from '@ionic/storage';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Device } from '@ionic-native/device/ngx';
 
+// TODO: Replace with custom loader?
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/localization/', '.json');
+}
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -23,6 +31,13 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     IonicStorageModule.forRoot(),
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     StatusBar,
@@ -30,7 +45,9 @@ import { HttpClientModule } from '@angular/common/http';
     ProfileService,
     NabtoService,
     BookmarksService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    BarcodeScanner,
+    Device,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
 })

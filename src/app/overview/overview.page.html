@@ -16,20 +16,17 @@
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Overview</ion-title>
+    <ion-title translate>OVERVIEW.TITLE</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content fullscreen>
   <ion-card *ngIf="(shownDevices)?.length === 0">
-    <ion-card-header>
-      No known devices
+    <ion-card-header translate>
+      OVERVIEW.NO_KNOWN_DEVICES
     </ion-card-header>
-    <ion-card-content>
-      Add a device using the buttons below:
-      Either scan the local network for
-      available devices or manually enter a
-      device id.
+    <ion-card-content translate>
+      OVERVIEW.NO_KNOWN_DEVICES_DESC
     </ion-card-content>
   </ion-card>
 
@@ -51,16 +48,16 @@
     </ion-item>
   </ion-list>
 
-  <ion-button expand="block" [routerLink]="['/discover-page']">
-    Discover and auto pair with device
+  <ion-button expand="block" [routerLink]="['/discover']" translate>
+    OVERVIEW.DISCOVER_BUTTON
   </ion-button>
 
-  <ion-button expand="block" color="light" (click)="addManually()">
-    Manually pair with device
+  <ion-button expand="block" color="light" (click)="addManually()" translate>
+    OVERVIEW.MANUAL_BUTTON
   </ion-button>
 
-  <ion-button expand="block" color="light">
+  <ion-button expand="block" color="light" (click)="refresh()">
     <ion-icon name="refresh-outline"></ion-icon>
-    Refresh
+    {{ 'OVERVIEW.REFRESH_BUTTON' | translate }}
   </ion-button>
 </ion-content>

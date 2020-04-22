@@ -1,0 +1,9 @@
+#spinner-container {
+    padding-top: 24px;
+}
+
+#spinner {
+    $size: 64px;
+    width: $size;
+    height: $size;
+}

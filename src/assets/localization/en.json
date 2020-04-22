@@ -1,0 +1,36 @@
+{
+    "DEVICE_ID": "Device ID",
+    "CANCEL": "Cancel",
+    "OVERVIEW": {
+        "TITLE": "Overview",
+        "NO_KNOWN_DEVICES": "No known devices",
+        "NO_KNOWN_DEVICES_DESC": "Add a device using the buttons below: Either scan the local network for available devices or manually enter a device id.",
+        "DISCOVER_BUTTON": "Discover and auto pair with device",
+        "MANUAL_BUTTON": "Manually pair with device",
+        "REFRESH_BUTTON": "Refresh",
+        "ERROR_NABTO_NOT_AVAILABLE": "Installation problem: Nabto SDK not available, please contact vendor.",
+        "ERROR_UNKNOWN": "App could not start, please contact vendor: "
+    },
+    "ADD_DEVICE": {
+        "TITLE": "Manually add device",
+        "SCAN_BUTTON": "Scan QR with device ID",
+        "SCAN_CANCEL": "Cancelled QR scan.",
+        "CLEAR_BUTTON": "Clear device ID",
+        "ADD_BUTTON": "Add device ID",
+        "AC_HEADER": "Access Control",
+        "AC_DESC": "<p>Your public key fingerprint must be added to the device's Access Control List before you can access the device. The device owner can add this.</p>Share your public key fingerprint here:",
+        "AC_BUTTON": "Share public key fingerprint",
+        "ERROR_ACCESS_DENIED": "Access denied - the device owner must add your public key fingerprint to the device access control list. Use the share button on this page to share your fingerprint with owner.",
+        "ERROR_DEVICE_ACCESS": "An error occurred when accessing device",
+        "ERROR_QR_MISSING_ID": "Missing device ID in QR code.",
+        "ERROR_QR_INVALID_DATA": "Invalid data in QR code."
+    },
+    "DISCOVER": {
+        "TITLE": "Discover devices"
+    },
+    "PROFILE": {
+        "TITLE": "Keypair creation",
+        "DESCRIPTION": "Enter the name to identify this {{platform}} device when communicating with other devices.",
+        "NAME": "Name to associate with keypair"
+    }
+}
