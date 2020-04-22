@@ -1,6 +1,8 @@
 {
     "DEVICE_ID": "Device ID",
     "CANCEL": "Cancel",
+    "CONTINUE": "Continue",
+    "CLEAR": "Clear",
     "OVERVIEW": {
         "TITLE": "Overview",
         "NO_KNOWN_DEVICES": "No known devices",
