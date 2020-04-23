@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { NabtoDevice, DeviceUser } from '../device.class';
+import { Device } from '@ionic-native/device/ngx';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { ProfileService } from '../profile.service';
+import { BookmarksService } from '../bookmarks.service';
+import { NabtoService } from '../nabto.service';
+import { ToastController } from '@ionic/angular';
+import { showToast } from '../util';
+import Customization from '../customization';
 
 @Component({
   selector: 'app-pairing',
@@ -6,10 +15,63 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pairing.page.scss'],
 })
 export class PairingPage implements OnInit {
+  device: NabtoDevice;
+  platform: string;
+  isPairing = false;
+  success = false;
 
-  constructor() { }
+  constructor(
+    public toastCtrl: ToastController,
+    private hostDevice: Device,
+    private route: ActivatedRoute,
+    private router: Router,
+    private nabtoService: NabtoService,
+    private profileService: ProfileService,
+    private bookmarksService: BookmarksService
+  ) { }
 
   ngOnInit() {
+    this.platform = this.hostDevice.platform;
+    this.route.queryParams.subscribe(params => {
+      const state = this.router.getCurrentNavigation().extras.state;
+      if (state && state.device) {
+        this.device = state.device;
+      } else {
+        // TODO: Logging?
+      }
+    });
   }
 
+  pair() {
+    this.isPairing = true;
+    this.profileService.lookupKeyPairName()
+      .then((name) => {
+        return this.nabtoService.pairWithCurrentUser(this.device, name);
+      })
+      .then((user: DeviceUser) => {
+        this.writeBookmark();
+        this.success = true;
+        this.device.currentUserIsOwner = user.isOwner();
+      })
+      .catch(error => {
+        this.handleError(error);
+      });
+  }
+
+  handleError(error: any) {
+    showToast(this.toastCtrl, error.message, true);
+  }
+
+  writeBookmark() {
+    this.bookmarksService.addBookmarkFromDevice(this.device);
+  }
+
+  showVendorPage() {
+    const extras: NavigationExtras = {
+      state: {
+        device: this.device
+      }
+    };
+    this.router.navigate([Customization.vendorPage], extras);
+  }
 }

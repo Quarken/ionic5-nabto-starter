@@ -37,6 +37,13 @@
         "ALERT_CLOSED_DEVICE_HEADER": "Device not open",
         "ALERT_CLOSED_DEVICE_BODY": "Sorry! This device is not open for pairing, please contact the device owner. Or perform a factory reset if you are the owner of the device but don't have access."
     },
+    "PAIRING": {
+        "TITLE": "Pair device",
+        "DESCRIPTION": "You are about to pair  your {{platform}} device with the {{product}} <em>{{name}}</em>",
+        "CONFIRM": "Confirm pairing",
+        "CONTINUE": "Go to your new device",
+        "BACK": "Back to overview"
+    },
     "PROFILE": {
         "TITLE": "Keypair creation",
         "DESCRIPTION": "Enter the name to identify this {{platform}} device when communicating with other devices.",

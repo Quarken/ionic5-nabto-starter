@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PairingPageRoutingModule } from './pairing-routing.module';
 
 import { PairingPage } from './pairing.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PairingPageRoutingModule
+    PairingPageRoutingModule,
+    TranslateModule
   ],
   declarations: [PairingPage]
 })

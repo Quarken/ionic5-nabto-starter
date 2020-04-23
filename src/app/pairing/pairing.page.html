@@ -1,9 +1,51 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>pairing</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title translate>PAIRING.TITLE</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/overview']">
+        <ion-icon slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
+  <div class="ion-padding-horizontal" [hidden]="success">
+    <ion-item>
+      <ion-thumbnail slot="start">
+
+      </ion-thumbnail>
+      <ion-label>
+        <h2>DEVICE NAME</h2>
+        <p>DEVICE PRODUCT</p>
+      </ion-label>
+    </ion-item>
+
+    <p [innerHTML]="'PAIRING.DESCRIPTION'| translate:{platform:platform, product:device?.product, name:device?.name}"></p>
+
+    <ion-button expand="block" (click)="pair()">
+      <p [hidden]="isPairing">
+        {{ 'PAIRING.CONFIRM' | translate }}
+      </p>
+      <ion-spinner [hidden]="!isPairing"></ion-spinner>
+    </ion-button>
+  </div>
+
+  <div class="ion-padding" [hidden]="!success">
+    <div class="ion-text-center" style="font-size: 150px;">
+      <ion-icon color="primary" name="checkmark-circle-outline"></ion-icon>
+    </div>
+
+    <ion-button expand="block" (click)="showVendorPage()" translate>
+      PAIRING.CONTINUE
+    </ion-button>
+
+    <ion-button expand="block" color="light" [routerLink]="['/overview']" translate>
+      PAIRING.BACK
+    </ion-button>
+  </div>
 
 </ion-content>
