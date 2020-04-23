@@ -1,5 +1,13 @@
+/**
+ * Utility types and functions.
+ */
+
 import { ToastController } from '@ionic/angular';
 import { ToastOptions } from '@ionic/core';
+
+// NOTE(as): ionic refresher uses a custom event with no proper interface.
+// https://ionicframework.com/docs/api/refresher
+export type RefreshEvent = Event & { target: { complete: () => void } };
 
 export async function showToast(toastCtrl: ToastController, msg: string, stayOnScreen = false) {
     const options: ToastOptions = {

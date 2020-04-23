@@ -1,11 +1,3 @@
-<!--<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>-->
-
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="secondary">
@@ -31,7 +23,7 @@
   </ion-card>
 
   <ion-list lines="none">
-    <ion-item *ngFor="let device of shownDevices" button (click)="deviceTapped(device)" detail="false">
+    <ion-item *ngFor="let device of devices | async" button (click)="deviceTapped(device)" detail="false">
       <ion-thumbnail slot="start">
         <img [src]="device.iconUrl" (error)="badImage(device)">
       </ion-thumbnail>

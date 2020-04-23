@@ -7,8 +7,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
-  <div id="spinner-container" align="center" *ngIf="busy else elseBlock">
-    <ion-spinner id="spinner"></ion-spinner>
+  <div class="ion-padding-top" align="center" *ngIf="busy else elseBlock">
+    <ion-spinner></ion-spinner>
   </div>
 
   <ng-template #elseBlock>

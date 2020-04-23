@@ -1,4 +1,4 @@
-import { Customization } from './customization.class';
+import Customization from './customization';
 
 const FP_ACL_PERMISSION_LOCAL_ACCESS          = 0x80000000;
 const FP_ACL_PERMISSION_REMOTE_ACCESS         = 0x40000000;
@@ -7,6 +7,7 @@ const FP_ACL_SYSTEM_PERMISSION_LOCAL_ACCESS   = 0x80000000;
 const FP_ACL_SYSTEM_PERMISSION_REMOTE_ACCESS  = 0x40000000;
 const FP_ACL_SYSTEM_PERMISSION_PAIRING        = 0x20000000;
 
+// TODO: Move strings that get displayed to the user out to the localization file?
 export class DeviceUser {
   public fingerprint: string;
   public name: string;

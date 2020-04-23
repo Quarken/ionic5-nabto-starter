@@ -19,7 +19,6 @@ import { ProfileComponent } from '../profile/profile.component';
 export class OverviewPage implements OnInit, OnDestroy {
   public devices: Observable<NabtoDevice[]>;
   public deviceInfoSource: Subject<NabtoDevice[]>;
-  public shownDevices: NabtoDevice[] = [];
   public empty: boolean;
   public firstView = true;
 
@@ -31,7 +30,6 @@ export class OverviewPage implements OnInit, OnDestroy {
     private nabtoService: NabtoService,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
-    private navCtrl: NavController,
     private translate: TranslateService,
     public modalController: ModalController,
     public router: Router
@@ -41,11 +39,6 @@ export class OverviewPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.devices = this.deviceInfoSource.asObservable();
-    this.devices.subscribe(next => {
-      console.log(`Got devices for overview ${JSON.stringify(next)}`);
-      this.shownDevices = next;
-    });
-
     this.profileLoaded.subscribe(() => this.refresh());
     this.verifyPlumbing()
       .then(() => this.initialize())

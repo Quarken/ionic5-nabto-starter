@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 declare let nabto: any;
 declare let NabtoError: any;
 
+// TODO: Move strings that get displayed to the user out to the localization file?
 @Injectable()
 export class NabtoService {
   private pkPassword = 'empty'; // see comment on createKeyPair() below
