@@ -3,6 +3,7 @@
     "CANCEL": "Cancel",
     "CONTINUE": "Continue",
     "CLEAR": "Clear",
+    "OKAY": "Okay",
     "OVERVIEW": {
         "TITLE": "Overview",
         "NO_KNOWN_DEVICES": "No known devices",
@@ -28,7 +29,13 @@
         "ERROR_QR_INVALID_DATA": "Invalid data in QR code."
     },
     "DISCOVER": {
-        "TITLE": "Discover devices"
+        "TITLE": "Discover devices",
+        "NO_DEVICES_HEADER": "No devices found on your network",
+        "NO_DEVICES_BODY": "Make sure you are on the same local area network as the device you try to discover and that the device is powered on. Swipe downwards to refresh.",
+        "ALERT_NO_INTERFACE_HEADER": "Firmware upgrade recommended",
+        "ALERT_NO_INTERFACE_BODY": "This device does not support strict interface checking. It is highly recommended to upgrade the device firmware to support this (contact your vendor). Do you want to continue anyway for now?",
+        "ALERT_CLOSED_DEVICE_HEADER": "Device not open",
+        "ALERT_CLOSED_DEVICE_BODY": "Sorry! This device is not open for pairing, please contact the device owner. Or perform a factory reset if you are the owner of the device but don't have access."
     },
     "PROFILE": {
         "TITLE": "Keypair creation",

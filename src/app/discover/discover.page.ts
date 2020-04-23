@@ -76,12 +76,12 @@ export class DiscoverPage implements OnInit {
   }
 
   handleUnpairedDevice(dev: NabtoDevice) {
-   const extras: NavigationExtras = {
-    state: {
-      device: dev
-    }
-  };
-  this.router.navigate(['pairing'], extras);
+    const extras: NavigationExtras = {
+      state: {
+        device: dev
+      }
+    };
+    this.router.navigate(['pairing'], extras);
   }
 
   async handleClosedDevice() {
