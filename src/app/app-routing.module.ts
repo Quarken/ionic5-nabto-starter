@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'pairing',
     loadChildren: () => import('./pairing/pairing.module').then( m => m.PairingPageModule)
   },
+  {
+    path: 'vendor-heating',
+    loadChildren: () => import('./vendor-heating/vendor-heating.module').then( m => m.VendorHeatingPageModule)
+  },
 
 
 

@@ -8,8 +8,9 @@ import { NabtoDevice } from '../device.class';
 import { NabtoService } from '../nabto.service';
 import { ProfileService } from '../profile.service';
 import { showToast } from '../util';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { ProfileComponent } from '../profile/profile.component';
+import Customization from '../customization';
 
 @Component({
   selector: 'app-home',
@@ -130,8 +131,23 @@ export class OverviewPage implements OnInit, OnDestroy {
     });
   }
 
-  deviceTapped(device: NabtoDevice) {
-    console.log('Tapped a device');
+  deviceTapped(dev: NabtoDevice) {
+    const extras: NavigationExtras = {
+      state: { device: dev }
+    };
+    if (dev.reachable) {
+      if (dev.currentUserIsPaired) {
+        this.router.navigate([Customization.vendorPage], extras);
+      } else {
+        if (dev.openForPairing) {
+          this.router.navigate(['pairing'], extras);
+        } else {
+          this.showToast(this.translate.instant('OVERVIEW.ERROR_DEVICE_NOT_OPEN_FOR_PAIRING'));
+        }
+      }
+    } else {
+      this.showToast(this.translate.instant('OVERVIEW.ERROR_DEVICE_NOT_REACHABLE', { id: dev.id }));
+    }
   }
 
   async addManually() {

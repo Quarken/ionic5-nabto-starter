@@ -12,6 +12,8 @@
         "MANUAL_BUTTON": "Manually pair with device",
         "REFRESH_BUTTON": "Refresh",
         "ERROR_NABTO_NOT_AVAILABLE": "Installation problem: Nabto SDK not available, please contact vendor.",
+        "ERROR_DEVICE_NOT_OPEN_FOR_PAIRING": "Device not open for pairing - please contact owner (or factory reset if you are the own).",
+        "ERROR_DEVICE_NOT_REACHABLE": "Device {{id}} is not reachable or is not supported.",
         "ERROR_UNKNOWN": "App could not start, please contact vendor: "
     },
     "ADD_DEVICE": {
@@ -32,6 +34,7 @@
         "TITLE": "Discover devices",
         "NO_DEVICES_HEADER": "No devices found on your network",
         "NO_DEVICES_BODY": "Make sure you are on the same local area network as the device you try to discover and that the device is powered on. Swipe downwards to refresh.",
+        "TOAST_ALREADY_PAIRED": "Already paired",
         "ALERT_NO_INTERFACE_HEADER": "Firmware upgrade recommended",
         "ALERT_NO_INTERFACE_BODY": "This device does not support strict interface checking. It is highly recommended to upgrade the device firmware to support this (contact your vendor). Do you want to continue anyway for now?",
         "ALERT_CLOSED_DEVICE_HEADER": "Device not open",
@@ -61,5 +64,12 @@
         "PAIRING_BODY": "<p>When a device is discovered, you are prompted to pair your client app with the device. If this is the first time somebody pairs a client with the device, you will become owner of the device. A device can only have one owner with the default implementation.</p>",
         "AC_HEADER": "Access control",
         "AC_BODY": "<p>The owner can change device settings and control who may have access to the device. Subsequent client devices paired after the initial owner pairing will only be granted guest access - ie. only the ability to access the main functionality of the device (e.g, the actual heat control functionality).</p><p>Through the security settings page of the device, the owner can control who has access to the individual device, what their access privileges are and how open the device is for adding new users.</p>"
+    },
+    "HEATING": {
+        "COOL": "Cool",
+        "HEAT": "Heat",
+        "CIRCULATE": "Circulate",
+        "DEHUMIDIFY": "Dehumidify",
+        "LOADING": "Invoking device..."
     }
 }

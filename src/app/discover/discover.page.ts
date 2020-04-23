@@ -64,7 +64,7 @@ export class DiscoverPage implements OnInit {
   }
 
   handleAlreadyPairedDevice(dev: NabtoDevice) {
-    showToast(this.toastCtrl, 'Already paired');
+    showToast(this.toastCtrl, this.translate.instant('DISCOVER.TOAST_ALREADY_PAIRED'));
     // if the user has deleted bookmark, add again
     this.bookmarksService.addBookmarkFromDevice(dev);
     const extras: NavigationExtras = {

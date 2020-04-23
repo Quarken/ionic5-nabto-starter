@@ -1,6 +1,6 @@
 const enum Customization {
   // name of page to navigate to from overview (the essential page of the app)
-  vendorPage = 'VendorHeatingPage',
+  vendorPage = 'vendor-heating',
 
   // supported device interface - only interact with devices that match exactly this
   interfaceId = '317aadf2-3137-474b-8ddb-fea437c424f4',
