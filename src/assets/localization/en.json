@@ -34,5 +34,18 @@
         "TITLE": "Keypair creation",
         "DESCRIPTION": "Enter the name to identify this {{platform}} device when communicating with other devices.",
         "NAME": "Name to associate with keypair"
+    },
+    "HELP": {
+        "TITLE": "Help",
+        "INTRO_HEADER": "Introduction",
+        "INTRO_BODY": "This app demonstrates the capabilities of the AppMyProduct platform through a simple heating control example. In the following \"target device\" denotes this heating control.",
+        "PROFILE_HEADER": "Client profile",
+        "PROFILE_BODY": "<p>The first time the app is started, a client profile is created, identifying this specific phone/app combination. This enables securely pairing the app with the target device.</p><p>You are prompted to associate a name with the client profile - a good choice is to include your name and the device type, this will make it simpler for device owners to recognize you if granting access.</p><p>you can re-create the client profile and set another name through the client settings page (\"settings\" wheel in upper right corner).</p>",
+        "OVERVIEW_HEADER": "Overview page",
+        "OVERVIEW_BODY": "<p>The overview page consists of a list of currently known target devices. A green icon indicates if it is online, a red icon and an error message if it is not available.</p><p>New devices can be added from the overview page: To add a device, your client (this app) must be on the same local area network as the target device to enable discovery.</p>",
+        "PAIRING_HEADER": "Pairing devices",
+        "PAIRING_BODY": "<p>When a device is discovered, you are prompted to pair your client app with the device. If this is the first time somebody pairs a client with the device, you will become owner of the device. A device can only have one owner with the default implementation.</p>",
+        "AC_HEADER": "Access control",
+        "AC_BODY": "<p>The owner can change device settings and control who may have access to the device. Subsequent client devices paired after the initial owner pairing will only be granted guest access - ie. only the ability to access the main functionality of the device (e.g, the actual heat control functionality).</p><p>Through the security settings page of the device, the owner can control who has access to the individual device, what their access privileges are and how open the device is for adding new users.</p>"
     }
 }

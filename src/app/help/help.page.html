@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title translate>HELP.TITLE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="ion-padding-horizontal">
+    <h2 translate>HELP.INTRO_HEADER</h2>
+    <div [innerHTML]="'HELP.INTRO_BODY' | translate"></div>
+
+    <h2 translate>HELP.PROFILE_HEADER</h2>
+    <div [innerHTML]="'HELP.PROFILE_BODY' | translate"></div>
+
+    <h2 translate>HELP.OVERVIEW_HEADER</h2>
+    <div [innerHTML]="'HELP.OVERVIEW_BODY' | translate"></div>
+
+    <h2 translate>HELP.PAIRING_HEADER</h2>
+    <div [innerHTML]="'HELP.PAIRING_BODY' | translate"></div>
+
+    <h2 translate>HELP.AC_HEADER</h2>
+    <div [innerHTML]="'HELP.AC_BODY' | translate"></div>
+  </div>
+</ion-content>
