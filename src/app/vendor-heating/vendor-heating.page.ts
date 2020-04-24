@@ -61,7 +61,6 @@ export class VendorHeatingPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log()
     this.loadingCtrl.create({
       message: this.translate.instant('HEATING.LOADING')
     }).then(loading => this.busyCtx.loading = loading);
