@@ -47,6 +47,7 @@
     },
     "DISCOVER": {
         "TITLE": "Discover devices",
+        "LOADING": "Discovering devices...",
         "NO_DEVICES_HEADER": "No devices found on your network",
         "NO_DEVICES_BODY": "Make sure you are on the same local area network as the device you try to discover and that the device is powered on. Swipe downwards to refresh.",
         "TOAST_ALREADY_PAIRED": "Already paired",

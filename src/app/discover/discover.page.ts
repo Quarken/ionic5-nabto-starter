@@ -4,7 +4,7 @@ import { NabtoDevice } from '../device.class';
 import { NabtoService } from '../nabto.service';
 import { BookmarksService, Bookmark } from '../bookmarks.service';
 import { showToast, RefreshEvent } from '../util';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, NavigationExtras } from '@angular/router';
 import Customization from '../customization';
@@ -21,9 +21,10 @@ export class DiscoverPage implements OnInit {
   devices: Observable<NabtoDevice[]>;
 
   constructor(
-    public translate: TranslateService,
-    public alertCtrl: AlertController,
-    public toastCtrl: ToastController,
+    private translate: TranslateService,
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
     private router: Router,
     private nabtoService: NabtoService,
     private bookmarksService: BookmarksService
@@ -34,29 +35,42 @@ export class DiscoverPage implements OnInit {
     this.devices = this.deviceInfoSource.asObservable();
   }
 
-  ionViewWillEnter() {
-    this.refresh();
+  ionViewDidEnter() {
+    this.loadingCtrl.create({
+      message: this.translate.instant('DISCOVER.LOADING')
+    }).then(loading => {
+      loading.present().then(() => {
+        this.refresh().then(() => loading.dismiss());
+      });
+    });
     this.nabtoService.prepareInvoke(this.recentIds);
   }
 
   prepareDevices(ids: string[]) {
-    this.nabtoService.prepareInvoke(ids).then(() => {
+    return this.nabtoService.prepareInvoke(ids).then(() => {
       // listview observes this.devices and will be populated as data is received
       this.nabtoService.getPublicInfo(ids.map((id) => new Bookmark(id)), this.deviceInfoSource);
       this.recentIds = ids;
     });
   }
 
-  refresh(event?: RefreshEvent) {
-    this.nabtoService.discover().then(ids => {
-      if (event) { event.target.complete(); }
-      this.prepareDevices(ids);
-    })
-      .catch(error => {
-        showToast(this.toastCtrl, error.message);
-        console.error(`Error at device discovery: ${JSON.stringify(error)}`);
+  refresh(event?: RefreshEvent): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
+      this.nabtoService.discover().then(ids => {
         if (event) { event.target.complete(); }
-      });
+        this.prepareDevices(ids).then(() => {
+          resolve();
+        });
+      })
+        .catch(error => {
+          showToast(this.toastCtrl, error.message);
+          console.error(`Error at device discovery: ${JSON.stringify(error)}`);
+          if (event) { event.target.complete(); }
+          resolve();
+        });
+    });
+
+    return promise;
   }
 
   isAccessible(device: NabtoDevice) {
