@@ -16,15 +16,15 @@
   <ion-list>
 
     <ion-item>
-      <ion-label [hidden]="!available()" style="font-size: 32px;">30&deg;C</ion-label>
-      <ion-note [hidden]="!available()" slot="end">23&deg;C in room</ion-note>
+      <ion-label [hidden]="!available()" style="font-size: 32px;">{{temperature}}&deg;C</ion-label>
+      <ion-note [hidden]="!available()" slot="end">{{roomTemperature}}&deg;C in room</ion-note>
       <ion-label [hidden]="available()" style="text-align: center; font-size: 32px;">{{unavailableStatus}}</ion-label>
     </ion-item>
 
     <!-- Temperature slider -->
     <ion-item>
-      <ion-range [disabled]="!activated" min="{{minTemp}}" max="{{maxTemp}}" [ngModel]="temperature" color="primary"
-        (ngModelChange)="tempChanged($event)">
+      <ion-range [disabled]="!activated" min="{{minTemp}}" max="{{maxTemp}}" [(ngModel)]="temperature" color="primary"
+        (ionChange)="updateTargetTemperature()">
         <ion-icon size="small" slot="start" name="snow" color="primary"></ion-icon>
         <ion-icon slot="end" name="sunny" color="primary"></ion-icon>
       </ion-range>
@@ -49,12 +49,12 @@
     <ion-row>
       <ion-col>
         <ion-button style="width: 75%">
-          <ion-icon name="refresh"></ion-icon>&nbsp;Refresh
+          <ion-icon name="refresh" color="light" (click)="refresh()"></ion-icon>&nbsp;Refresh
         </ion-button>
       </ion-col>
       <ion-col class="ion-text-end">
         <ion-button style="width: 75%" color="light">
-          <ion-icon name="cog"></ion-icon>&nbsp;Settings
+          <ion-icon name="cog" (click)="navigateToSettings()"></ion-icon>&nbsp;Settings
         </ion-button>
       </ion-col>
     </ion-row>

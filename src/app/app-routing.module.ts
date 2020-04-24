@@ -17,6 +17,10 @@ const routes: Routes = [
     path: 'vendor-heating',
     loadChildren: () => import('./vendor-heating/vendor-heating.module').then( m => m.VendorHeatingPageModule)
   },
+  {
+    path: 'device-settings',
+    loadChildren: () => import('./device-settings/device-settings.module').then( m => m.DeviceSettingsPageModule)
+  },
 
 
 

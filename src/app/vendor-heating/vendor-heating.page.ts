@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NabtoDevice } from '../device.class';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { NabtoService } from '../nabto.service';
 import { showToast } from '../util';
@@ -14,8 +14,6 @@ enum DeviceMode {
   CIRCULATE = 2,
   DEHUMIDIFY = 3
 }
-
-// TODO: Busy loader
 
 @Component({
   selector: 'app-vendor-heating',
@@ -62,12 +60,8 @@ export class VendorHeatingPage implements OnInit {
     };
   }
 
-  DeviceModeKeys() {
-    const keys = Object.values(DeviceMode);
-    return keys.slice(0, keys.length / 2);
-  }
-
   ngOnInit() {
+    console.log()
     this.loadingCtrl.create({
       message: this.translate.instant('HEATING.LOADING')
     }).then(loading => this.busyCtx.loading = loading);
@@ -76,9 +70,19 @@ export class VendorHeatingPage implements OnInit {
       if (state && state.device) {
         this.device = state.device;
       } else {
-        // TODO: Logging?
+        // TODO: Show error to user?
+        console.error('Vendor page was loaded without a device.');
       }
     });
+  }
+
+  DeviceModeKeys() {
+    const keys = Object.values(DeviceMode);
+    return keys.slice(0, keys.length / 2);
+  }
+
+  ionViewWillEnter() {
+    this.refresh();
   }
 
   refresh() {
@@ -119,11 +123,6 @@ export class VendorHeatingPage implements OnInit {
     });
   }
 
-  tempChanged(temp: number) {
-    this.temperature = temp;
-    this.updateTargetTemperature();
-  }
-
   increment() {
     if (this.activated) { // we cannot disable tap events on icon in html
       if (this.temperature < this.maxTemp) {
@@ -143,6 +142,9 @@ export class VendorHeatingPage implements OnInit {
   }
 
   updateTargetTemperature() {
+    if (isNaN(this.temperature)) {
+      return;
+    }
     this.nabtoService.invokeRpc(
       this.device.id,
       'heatpump_set_target_temperature.json',
@@ -174,7 +176,8 @@ export class VendorHeatingPage implements OnInit {
   }
 
   mapToDeviceMode(mode: string): DeviceMode {
-    return DeviceMode[mode] || -1;
+    const asEnum: DeviceMode = DeviceMode[mode];
+    return asEnum != undefined ? asEnum : -1;
   }
 
   mapDeviceTemp(tempFromDevice: number) {
@@ -197,6 +200,13 @@ export class VendorHeatingPage implements OnInit {
 
   unavailable() {
     return !this.activated || this.offline;
+  }
+
+  navigateToSettings() {
+    const extras: NavigationExtras = {
+      state: { device: this.device }
+    };
+    this.router.navigate(['device-settings'], extras);
   }
 
   busyBegin() {
