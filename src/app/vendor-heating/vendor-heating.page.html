@@ -17,7 +17,7 @@
 
     <ion-item>
       <ion-label [hidden]="!available()" style="font-size: 32px;">{{temperature}}&deg;C</ion-label>
-      <ion-note [hidden]="!available()" slot="end">{{roomTemperature}}&deg;C in room</ion-note>
+      <ion-note [hidden]="!available()" slot="end">{{roomTemperature}}&deg;C {{ 'HEATING.TEMPERATURE_NOTE' | translate }}</ion-note>
       <ion-label [hidden]="available()" style="text-align: center; font-size: 32px;">{{unavailableStatus}}</ion-label>
     </ion-item>
 
@@ -31,7 +31,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Heatpump active</ion-label>
+      <ion-label translate>HEATING.TOGGLE_LABEL</ion-label>
       <ion-toggle [(ngModel)]="activated" (ionChange)="activationToggled()"></ion-toggle>
     </ion-item>
 
@@ -49,12 +49,12 @@
     <ion-row>
       <ion-col>
         <ion-button style="width: 75%">
-          <ion-icon name="refresh" color="light" (click)="refresh()"></ion-icon>&nbsp;Refresh
+          <ion-icon name="refresh" color="light" (click)="refresh()"></ion-icon>&nbsp;{{ 'REFRESH' | translate }}
         </ion-button>
       </ion-col>
       <ion-col class="ion-text-end">
         <ion-button style="width: 75%" color="light">
-          <ion-icon name="cog" (click)="navigateToSettings()"></ion-icon>&nbsp;Settings
+          <ion-icon name="cog" (click)="navigateToSettings()"></ion-icon>&nbsp;{{ 'SETTINGS' | translate }}
         </ion-button>
       </ion-col>
     </ion-row>

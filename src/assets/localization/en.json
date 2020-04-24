@@ -4,6 +4,8 @@
     "CONTINUE": "Continue",
     "CLEAR": "Clear",
     "OKAY": "Okay",
+    "REFRESH": "Refresh",
+    "SETTINGS": "Settings",
     "OVERVIEW": {
         "TITLE": "Overview",
         "NO_KNOWN_DEVICES": "No known devices",
@@ -70,6 +72,10 @@
         "HEAT": "Heat",
         "CIRCULATE": "Circulate",
         "DEHUMIDIFY": "Dehumidify",
-        "LOADING": "Invoking device..."
+        "LOADING": "Invoking device...",
+        "TEMPERATURE_NOTE": "in room",
+        "TOGGLE_LABEL": "Heatpump active",
+        "STATUS_OFFLINE": "Device offline",
+        "STATUS_POWERED_OFF": "Device powered off"
     }
 }

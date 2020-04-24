@@ -96,7 +96,7 @@ export class VendorHeatingPage implements OnInit {
         this.temperature = this.mapDeviceTemp(state.target_temperature);
         this.roomTemperature = state.room_temperature;
         if (!this.activated) {
-          this.unavailableStatus = 'Powered off';
+          this.unavailableStatus = this.translate.instant('HEATING.STATUS_POWERED_OFF');
         }
       }).catch(error => {
         this.busyEnd();
@@ -114,7 +114,7 @@ export class VendorHeatingPage implements OnInit {
       this.busyEnd();
       this.activated = state.activated;
       if (!this.activated) {
-        this.unavailableStatus = 'Powered off';
+        this.unavailableStatus = this.translate.instant('HEATING.STATUS_POWERED_OFF');
       }
     }).catch(error => {
       this.busyEnd();
@@ -185,7 +185,7 @@ export class VendorHeatingPage implements OnInit {
 
   handleError(error) {
     if (error.code == NabtoError.Code.API_RPC_DEVICE_OFFLINE) {
-      this.unavailableStatus = 'Device offline';
+      this.unavailableStatus = this.translate.instant('HEATING.STATUS_OFFLINE');
       this.offline = true;
     } else {
       console.error(`ERROR invoking device: ${JSON.stringify(error)}`);
