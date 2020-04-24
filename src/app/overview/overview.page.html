@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content fullscreen>
-  <ion-card *ngIf="(shownDevices)?.length === 0">
+  <ion-card *ngIf="(shownDevices | async)?.length === 0">
     <ion-card-header translate>
       OVERVIEW.NO_KNOWN_DEVICES
     </ion-card-header>

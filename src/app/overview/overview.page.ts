@@ -46,6 +46,10 @@ export class OverviewPage implements OnInit, OnDestroy {
       .catch((err) => console.error(`App could not start: ${err.message || err}`));
   }
 
+  ionOnViewWillEnter() {
+    this.refresh();
+  }
+
   ngOnDestroy() {
     this.profileLoaded.unsubscribe();
     this.deviceInfoSource.unsubscribe();

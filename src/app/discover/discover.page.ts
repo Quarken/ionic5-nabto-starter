@@ -34,7 +34,7 @@ export class DiscoverPage implements OnInit {
     this.devices = this.deviceInfoSource.asObservable();
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.refresh();
     this.nabtoService.prepareInvoke(this.recentIds);
   }

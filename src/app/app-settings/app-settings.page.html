@@ -3,10 +3,27 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>app-settings</ion-title>
+    <ion-title translate>APP_SETTINGS.TITLE</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding" fullscreen>
+  <h2 translate>APP_SETTINGS.KEY_PAIR_TITLE</h2>
+  <p>{{ 'APP_SETTINGS.KEY_PAIR_BODY' | translate:translateParams }}</p>
+  <pre style="white-space: pre-wrap;">
+    {{fingerprint }}
+  </pre>
 
+  <ion-button color="light" expand="block" (click)="share()" translate>
+    APP_SETTINGS.BUTTON_SHARE
+  </ion-button>
+
+  <ion-button color="light" expand="block" (click)="clearProfile()">
+    {{ 'APP_SETTINGS.BUTTON_RECREATE' | translate:translateParams }}
+  </ion-button>
+
+  <h2 translate>APP_SETTINGS.KNOWN_DEVICES</h2>
+  <ion-button color="light" expand="block" (click)="clearDevices()" translate>
+    APP_SETTINGS.BUTTON_KNOWN_DEVICES
+  </ion-button>
 </ion-content>

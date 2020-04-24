@@ -7,8 +7,7 @@ import { RouterModule } from '@angular/router';
 import { OverviewPage } from './overview.page';
 import { DeviceAddComponent } from '../device-add/device-add.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProfileComponent } from '../profile/profile.component';
-import { Device } from '@ionic-native/device/ngx';
+import { ProfileModalModule } from '../profile/profile.module';
 
 @NgModule({
   imports: [
@@ -21,16 +20,15 @@ import { Device } from '@ionic-native/device/ngx';
         component: OverviewPage
       }
     ]),
-    TranslateModule
+    TranslateModule,
+    ProfileModalModule
   ],
   declarations: [
     OverviewPage,
     DeviceAddComponent,
-    ProfileComponent
   ],
   entryComponents: [
     DeviceAddComponent,
-    ProfileComponent
   ]
 })
 export class OverviewPageModule {}
