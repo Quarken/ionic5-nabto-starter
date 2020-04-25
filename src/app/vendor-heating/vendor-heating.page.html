@@ -25,8 +25,8 @@
     <ion-item>
       <ion-range [disabled]="!activated" min="{{minTemp}}" max="{{maxTemp}}" [(ngModel)]="temperature" color="primary"
         (ionChange)="updateTargetTemperature()">
-        <ion-icon size="small" slot="start" name="snow" color="primary"></ion-icon>
-        <ion-icon slot="end" name="sunny" color="primary"></ion-icon>
+        <ion-icon size="small" slot="start" name="snow" color="primary" (click)="decrement()"></ion-icon>
+        <ion-icon slot="end" name="sunny" color="primary" (click)="increment()"></ion-icon>
       </ion-range>
     </ion-item>
 

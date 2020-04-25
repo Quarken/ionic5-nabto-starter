@@ -30,6 +30,8 @@ export class VendorHeatingPage implements OnInit {
   minTemp: number;
   maxTemp: number;
 
+  temperatureUpdateTimer: number;
+
   busyCtx: {
     busy: boolean;
     timer: number;
@@ -144,15 +146,26 @@ export class VendorHeatingPage implements OnInit {
     if (isNaN(this.temperature)) {
       return;
     }
-    this.nabtoService.invokeRpc(
-      this.device.id,
-      'heatpump_set_target_temperature.json',
-      { temperature: this.temperature }
-    ).then((state: any) => {
-      this.temperature = state.temperature;
-    }).catch(error => {
-      this.handleError(error);
-    });
+
+    // NOTE(as): send the temp change only if it is
+    // the only change within the last 200 milliseconds
+    // to avoid flooding the device.
+    const debounce = 200;
+    window.clearTimeout(this.temperatureUpdateTimer);
+    this.temperatureUpdateTimer = window.setTimeout(() => {
+      this.busyBegin();
+      this.nabtoService.invokeRpc(
+        this.device.id,
+        'heatpump_set_target_temperature.json',
+        { temperature: this.temperature }
+      ).then((state: any) => {
+        this.busyEnd();
+        this.temperature = state.temperature;
+      }).catch(error => {
+        this.busyEnd();
+        this.handleError(error);
+      });
+    }, debounce);
   }
 
   updateMode() {
