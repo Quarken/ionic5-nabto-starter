@@ -184,12 +184,11 @@ export class VendorHeatingPage implements OnInit {
   }
 
   mapDeviceMode(mode: DeviceMode): string {
-    return DeviceMode[mode] || '';
+    return DeviceMode[mode] ?? '';
   }
 
   mapToDeviceMode(mode: string): DeviceMode {
-    const asEnum: DeviceMode = DeviceMode[mode];
-    return asEnum != undefined ? asEnum : -1;
+    return DeviceMode[mode] ?? -1;
   }
 
   mapDeviceTemp(tempFromDevice: number) {
