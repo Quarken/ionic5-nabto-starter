@@ -4,6 +4,7 @@ import { NabtoDevice } from '../device.class';
 import { ToastController } from '@ionic/angular';
 import { showToast } from '../util';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-device-settings',
@@ -18,12 +19,22 @@ export class DeviceSettingsPage implements OnInit {
   qrInput: string;
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private clipboard: Clipboard,
     private toastCtrl: ToastController,
     private nabtoService: NabtoService
   ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const state = this.router.getCurrentNavigation().extras.state;
+      if (state?.device) {
+        this.device = state.device;
+      } else {
+        console.error('Device settings page was loaded without a device.');
+      }
+    });
   }
 
   ionViewWillEnter() {
@@ -62,5 +73,9 @@ export class DeviceSettingsPage implements OnInit {
       }).catch((error) => {
         showToast(this.toastCtrl, error.message);
       });
+  }
+
+  toggleQr() {
+    this.hideQr = !this.hideQr;
   }
 }

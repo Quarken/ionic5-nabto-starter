@@ -87,7 +87,8 @@
         "PROPERTIES_HEADER": "Properties",
         "NAME_LABEL": "Enter the name of this device, e.g. \"Kitchen\"",
         "BUTTON_COPY": "Copy",
-        "SECURITY_HEADER": "Security"
+        "SECURITY_HEADER": "Security",
+        "BUTTON_SECURITY": "Edit security settings"
     },
     "HEATING": {
         "COOL": "Cool",

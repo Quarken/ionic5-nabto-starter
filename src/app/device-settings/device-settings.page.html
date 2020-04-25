@@ -26,18 +26,18 @@
   <h2 translate>DEVICE_ID</h2>
   <pre style="white-space: pre-wrap;">{{device.id}}</pre>
   <div [hidden]="hideQr" align="center">
-    <!-- TODO: display QR code -->
+    <qrcode class="ion-text-center" [qrdata]="qrInput"></qrcode>
   </div>
 
   <ion-grid>
     <ion-row>
       <ion-col class="ion-text-left">
-        <ion-button color="light" (click)="copyDeviceId()">
+        <ion-button color="light" (click)="copyDeviceId()" translate>
           DEVICE_SETTINGS.BUTTON_COPY
         </ion-button>
       </ion-col>
       <ion-col class="ion-text-right">
-        <ion-button color="light" (click)="copyDeviceId()">
+        <ion-button color="light" (click)="toggleQr()">
           Show/Hide QR <!-- TODO: Localization -->
         </ion-button>
       </ion-col>
