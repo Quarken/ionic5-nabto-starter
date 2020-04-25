@@ -17,7 +17,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Device } from '@ionic-native/device/ngx';
-import { ProfileComponent } from './profile/profile.component';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 // TODO: Replace with custom loader?
 export function createTranslateLoader(http: HttpClient) {
@@ -47,6 +47,7 @@ export function createTranslateLoader(http: HttpClient) {
     NabtoService,
     BookmarksService,
     BarcodeScanner,
+    Clipboard,
     Device,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],

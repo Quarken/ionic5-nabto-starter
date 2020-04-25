@@ -1,9 +1,53 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>device-settings</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title translate>DEVICE_SETTINGS.TITLE</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/overview']">
+        <ion-icon slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding" fullscreen>
+  <div [hidden]="device.currentUserIsOwner" translate>DEVICE_SETTINGS.USER_IS_GUEST</div>
 
+  <h2 translate>DEVICE_SETTINGS.PROPERTIES_HEADER</h2>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked" translate>DEVICE_SETTINGS.NAME_LABEL</ion-label>
+      <ion-input [disabled]="!device.currentUserIsOwner" required type="text" [(ngModel)]="device.name" (blur)="saveProperties"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <h2 translate>DEVICE_ID</h2>
+  <pre style="white-space: pre-wrap;">{{device.id}}</pre>
+  <div [hidden]="hideQr" align="center">
+    <!-- TODO: display QR code -->
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-left">
+        <ion-button color="light" (click)="copyDeviceId()">
+          DEVICE_SETTINGS.BUTTON_COPY
+        </ion-button>
+      </ion-col>
+      <ion-col class="ion-text-right">
+        <ion-button color="light" (click)="copyDeviceId()">
+          Show/Hide QR <!-- TODO: Localization -->
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <h2 translate>DEVICE_SETTINGS.SECURITY_HEADER</h2>
+  <p>{{securityMessage}}</p>
+
+  <ion-button [disabled]="!device.currentUserIsOwner" type="submit" expand="block" (click)="showSecurityPage()">
+    <ion-icon name="lock"></ion-icon>&nbsp;{{ 'DEVICE_SETTINGS.BUTTON_SECURITY' | translate }}
+  </ion-button>
 </ion-content>

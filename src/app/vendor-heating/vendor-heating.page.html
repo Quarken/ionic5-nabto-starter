@@ -48,13 +48,13 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button style="width: 75%">
-          <ion-icon name="refresh" color="light" (click)="refresh()"></ion-icon>&nbsp;{{ 'REFRESH' | translate }}
+        <ion-button style="width: 75%" (click)="refresh()">
+          <ion-icon name="refresh" color="light"></ion-icon>&nbsp;{{ 'REFRESH' | translate }}
         </ion-button>
       </ion-col>
       <ion-col class="ion-text-end">
-        <ion-button style="width: 75%" color="light">
-          <ion-icon name="cog" (click)="navigateToSettings()"></ion-icon>&nbsp;{{ 'SETTINGS' | translate }}
+        <ion-button style="width: 75%" color="light" (click)="navigateToSettings()">
+          <ion-icon name="cog"></ion-icon>&nbsp;{{ 'SETTINGS' | translate }}
         </ion-button>
       </ion-col>
     </ion-row>

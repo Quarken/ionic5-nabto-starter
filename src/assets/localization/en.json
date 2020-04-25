@@ -81,6 +81,14 @@
         "AC_HEADER": "Access control",
         "AC_BODY": "<p>The owner can change device settings and control who may have access to the device. Subsequent client devices paired after the initial owner pairing will only be granted guest access - ie. only the ability to access the main functionality of the device (e.g, the actual heat control functionality).</p><p>Through the security settings page of the device, the owner can control who has access to the individual device, what their access privileges are and how open the device is for adding new users.</p>"
     },
+    "DEVICE_SETTINGS": {
+        "TITLE": "Device settings",
+        "USER_IS_GUEST": "Only the owner of this device can change settings, you currently only have guest permissions. If you actually are the owner, you must perform a factory reset of the device.",
+        "PROPERTIES_HEADER": "Properties",
+        "NAME_LABEL": "Enter the name of this device, e.g. \"Kitchen\"",
+        "BUTTON_COPY": "Copy",
+        "SECURITY_HEADER": "Security"
+    },
     "HEATING": {
         "COOL": "Cool",
         "HEAT": "Heat",
