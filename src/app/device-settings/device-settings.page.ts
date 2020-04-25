@@ -5,6 +5,7 @@ import { ToastController } from '@ionic/angular';
 import { showToast } from '../util';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-device-settings',
@@ -19,6 +20,7 @@ export class DeviceSettingsPage implements OnInit {
   qrInput: string;
 
   constructor(
+    private translate: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
     private clipboard: Clipboard,
@@ -49,27 +51,27 @@ export class DeviceSettingsPage implements OnInit {
     this.nabtoService.readAllSecuritySettings(this.device)
       .then(() => this.updateSecurityMessage())
       .catch((error) => {
-        showToast(this.toastCtrl, 'Could not read security settings: ' + error.message);
+        showToast(this.toastCtrl, this.translate.instant('DEVICE_SETTINGS.ERROR_SECURITY_SETTINGS') + error.message);
       });
   }
 
   updateSecurityMessage() {
     if (this.device.openForPairing) {
-      this.securityMessage = 'This device is currently open for pairing to grant new guests access.';
+      this.securityMessage = this.translate.instant('DEVICE_SETTINGS.TOAST_SECURITY_DEVICE_OPEN');
     } else {
-      this.securityMessage = 'This device is closed for pairing, change this to grant new guests access.';
+      this.securityMessage = this.translate.instant('DEVICE_SETTINGS.TOAST_SECURITY_DEVICE_CLOSED');
     }
   }
 
   copyDeviceId() {
     this.clipboard.copy(this.device.id);
-    showToast(this.toastCtrl, `Device id copied to clipboard`);
+    showToast(this.toastCtrl, this.translate.instant('DEVICE_SETTINGS.TOAST_COPY'));
   }
 
   saveProperties() {
     this.nabtoService.setSystemInfo(this.device)
       .then(() => {
-        showToast(this.toastCtrl, 'Device updated!');
+        showToast(this.toastCtrl, this.translate.instant('DEVICE_SETTINGS.TOAST_PROPERTIES_SAVED'));
       }).catch((error) => {
         showToast(this.toastCtrl, error.message);
       });
