@@ -1,9 +1,44 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>acl-edit</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title translate>ACL_EDIT.TITLE</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/overview']">
+        <ion-icon slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding" fullscreen>
 
+  <div [innerHTML]="'ACL_EDIT.DESC' | translate:translateParams"></div>
+
+  <h2 translate>ACL_EDIT.RA_TITLE</h2>
+  <p>{{ 'ACL_EDIT.RA_DESC' | translate:translateParams }}</p>
+  <ion-list>
+    <ion-item>
+      <ion-label translate>ACL_EDIT.RA_TITLE</ion-label>
+      <ion-toggle [disabled]="!device.remoteAccessEnabled" [(ngModel)]="hasRemoteAccess" (ionChange)="updatePermissions()" (tap)="tapped()" ></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <h2 translate>ACL_EDIT.NAME_TITLE</h2>
+  <p translate>ACL_EDIT.NAME_DESC</p>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked" translate>ACL_EDIT.NAME_LABEL</ion-label>
+      <ion-input required type="text" [(ngModel)]="user.name" name="title" (ionBlur)="updateName()"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <div [hidden]="!user.isOwner()">
+    <h2 translate>ACL_EDIT.REMOVE_TITLE</h2>
+    {{ 'ACL_EDIT.REMOVE_DESC' | translate }} <em>{{user.name}}</em>
+    <ion-button color="danger" expand="block" (click)="removeUser()" translate>
+      ACL_EDIT.REMOVE_BUTTON
+    </ion-button>
+  </div>
 </ion-content>

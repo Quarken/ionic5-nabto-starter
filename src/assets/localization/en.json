@@ -134,6 +134,21 @@
         "TOAST_MISSING_NAME": "Missing device name in QR code",
         "TOAST_INVALID_DATA": "Invalid data in QR code"
     },
+    "ACL_EDIT": {
+        "TITLE": "Edit user",
+        "DESC": "<p>Control how <em>{{name}}</em> may access your {{product}} device.</p>",
+        "RA_TITLE": "Remote access",
+        "RA_DESC": "If remote access is enabled for your {{product}} device, allow this specific user to access it from remote.",
+        "NAME_TITLE": "Display name",
+        "NAME_DESC": "Change the display name you see for the user's device, e.g. \"Dad's iPhone\" instead of the name the user suggested when pairing (e.g. \"iPhone 5\").",
+        "NAME_LABEL": "Name to use in list",
+        "REMOVE_TITLE": "REMOVE USER",
+        "REMOVE_DESC": "Revoke the access granted to ",
+        "REMOVE_BUTTON": "Remove this user",
+        "TOAST_FAIL_UPDATE": "Could not update user: ",
+        "TOAST_FAIL_DELETE_STATUS": "Could not delete user, status is ",
+        "TOAST_FAIL_DELETE": "Could not delete user: "
+    },
     "HEATING": {
         "COOL": "Cool",
         "HEAT": "Heat",
