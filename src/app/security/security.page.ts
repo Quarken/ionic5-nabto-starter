@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NabtoService } from '../nabto.service';
 import { NabtoDevice, DeviceUser } from '../device.class';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Observable, of as observableOf } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { showToast } from '../util';
 
 @Component({
   selector: 'app-security',
@@ -17,6 +18,7 @@ export class SecurityPage implements OnInit {
   acl: Observable<DeviceUser[]>;
 
   constructor(
+    private toastCtrl: ToastController,
     private translate: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
@@ -53,20 +55,18 @@ export class SecurityPage implements OnInit {
         this.aclSrc.push(new DeviceUser(user));
       }
     }).catch(error => {
-      // TODO: Handle error
+      showToast(this.toastCtrl, error.message);
     });
   }
 
   update() {
     if (!this.device) { return; }
-    // TODO: Only invoke device if a user has tapped?
     console.log(`Updating security settings: ${JSON.stringify(this.device)}`);
     this.nabtoService.setSystemSecuritySettings(this.device)
       .then(() => console.log(`Updated settings:  + ${JSON.stringify(this.device)}`))
       .catch(error => {
         console.log(error.message);
-        // TODO: Handle error
-        // this.handleError("Could not update settings: " + error.message);
+        showToast(this.toastCtrl, this.translate.instant('SECURITY.TOAST_COULD_NOT_UPDATE') + error.message);
       });
   }
 

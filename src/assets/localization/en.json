@@ -109,7 +109,8 @@
         "ACL_HEADER": "Access Control List",
         "ACL_BODY": "Control who has access to your device.",
         "RSA_FP": "RSA fingerprint: ",
-        "ACL_BUTTON": "Manually add to access control list"
+        "ACL_BUTTON": "Manually add to access control list",
+        "TOAST_COULD_NOT_UPDATE": "Could not update settings: "
     },
     "HEATING": {
         "COOL": "Cool",
