@@ -119,6 +119,21 @@
         "ACL_BUTTON": "Manually add to access control list",
         "TOAST_COULD_NOT_UPDATE": "Could not update settings: "
     },
+    "ACL_ADD": {
+        "TITLE": "Add to ACL",
+        "DESC": "The device owner can scan the QR code to grant you access to a device (that is, add your public key fingerprint to the device's access control list)",
+        "NAME": "Name",
+        "FP": "Public key fingerprint",
+        "SCAN_QR": "Scan QR",
+        "ADD": "Add",
+        "TOAST_INVALID_FP": "Fingerprint not valid: ",
+        "TOAST_FAIL1": "Could not add user, status is",
+        "TOAST_FAIL2": "Could not add user: ",
+        "TOAST_CANCEL": "Cancelled QR scan",
+        "TOAST_MISSING_FP": "Missing fingerprint in QR code",
+        "TOAST_MISSING_NAME": "Missing device name in QR code",
+        "TOAST_INVALID_DATA": "Invalid data in QR code"
+    },
     "HEATING": {
         "COOL": "Cool",
         "HEAT": "Heat",

@@ -1,9 +1,41 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>acl-add</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title translate>ACL_ADD.TITLE</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/overview']">
+        <ion-icon slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding" fullscreen>
+  <p translate>ACL_ADD.DESC</p>
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">ACL_ADD.NAME</ion-label>
+      <ion-input required type="text" [(ngModel)]="name" name="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">ACL_ADD.FP</ion-label>
+      <ion-input required type="text" [(ngModel)]="fingerprint" name="fingerprint"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button color="light" type="submit" expand="block" (click)="scan()" translate>
+    ACL_ADD.SCAN_QR
+  </ion-button>
+
+  <ion-button color="light" expand="block" (click)="clear()" translate>
+    CLEAR
+  </ion-button>
+
+  <ion-button type="submit" expand="block" (click)="add()" [disabled]="fingerprint.length == 0 || name.length == 0" translate>
+    ACL_ADD.ADD
+  </ion-button>
 
 </ion-content>

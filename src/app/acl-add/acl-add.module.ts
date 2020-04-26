@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { AclAddPageRoutingModule } from './acl-add-routing.module';
 
 import { AclAddPage } from './acl-add.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AclAddPageRoutingModule
+    AclAddPageRoutingModule,
+    TranslateModule
   ],
   declarations: [AclAddPage]
 })
