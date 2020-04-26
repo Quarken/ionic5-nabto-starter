@@ -15,7 +15,7 @@ import Customization from '../customization';
   styleUrls: ['./pairing.page.scss'],
 })
 export class PairingPage implements OnInit {
-  device: NabtoDevice;
+  device?: NabtoDevice;
   platform: string;
   isPairing = false;
   success = false;
@@ -28,13 +28,15 @@ export class PairingPage implements OnInit {
     private nabtoService: NabtoService,
     private profileService: ProfileService,
     private bookmarksService: BookmarksService
-  ) { }
+  ) {
+    this.platform = '';
+  }
 
   ngOnInit() {
     this.platform = this.hostDevice.platform;
     this.route.queryParams.subscribe(params => {
-      const state = this.router.getCurrentNavigation().extras.state;
-      if (state && state.device) {
+      const state = this.router.getCurrentNavigation()?.extras.state;
+      if (state?.device) {
         this.device = state.device;
       } else {
         // TODO: Logging?
@@ -46,9 +48,11 @@ export class PairingPage implements OnInit {
     this.isPairing = true;
     this.profileService.lookupKeyPairName()
       .then((name) => {
+        if (!this.device) { return; }
         return this.nabtoService.pairWithCurrentUser(this.device, name);
       })
-      .then((user: DeviceUser) => {
+      .then((user?: DeviceUser) => {
+        if (!this.device || !user) { return; }
         this.writeBookmark();
         this.success = true;
         this.device.currentUserIsOwner = user.isOwner();
@@ -63,6 +67,7 @@ export class PairingPage implements OnInit {
   }
 
   writeBookmark() {
+    if (!this.device) { return; }
     this.bookmarksService.addBookmarkFromDevice(this.device);
   }
 

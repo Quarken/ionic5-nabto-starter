@@ -20,9 +20,6 @@ import Customization from '../customization';
 export class OverviewPage implements OnInit, OnDestroy {
   public devices: Observable<NabtoDevice[]>;
   public deviceInfoSource: Subject<NabtoDevice[]>;
-  public empty: boolean;
-  public firstView = true;
-
   private profileLoaded = new Subject<void>();
 
   constructor(
@@ -36,10 +33,10 @@ export class OverviewPage implements OnInit, OnDestroy {
     public router: Router
   ) {
     this.deviceInfoSource = new Subject<NabtoDevice[]>();
+    this.devices = this.deviceInfoSource.asObservable();
   }
 
   ngOnInit() {
-    this.devices = this.deviceInfoSource.asObservable();
     this.profileLoaded.subscribe(() => this.refresh());
     this.verifyPlumbing()
       .then(() => this.initialize())

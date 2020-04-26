@@ -6,8 +6,6 @@ import { NabtoService } from '../nabto.service';
 import { showToast } from '../util';
 import { TranslateService } from '@ngx-translate/core';
 
-declare var NabtoError;
-
 enum DeviceMode {
   COOL = 0,
   HEAT = 1,
@@ -15,31 +13,33 @@ enum DeviceMode {
   DEHUMIDIFY = 3
 }
 
+type DeviceModeString = keyof typeof DeviceMode;
+
 @Component({
   selector: 'app-vendor-heating',
   templateUrl: './vendor-heating.page.html',
   styleUrls: ['./vendor-heating.page.scss'],
 })
 export class VendorHeatingPage implements OnInit {
-  device: NabtoDevice;
+  device?: NabtoDevice;
   activated: boolean;
   offline: boolean;
-  temperature: number;
-  mode: string;
-  roomTemperature: number;
+  temperature?: number;
+  mode?: DeviceModeString;
+  roomTemperature?: number;
   minTemp: number;
   maxTemp: number;
 
-  temperatureUpdateTimer: number;
+  temperatureUpdateTimer = -1;
 
   busyCtx: {
     busy: boolean;
-    timer: number;
-    loading: HTMLIonLoadingElement;
+    timer?: number;
+    loading?: HTMLIonLoadingElement;
   };
 
   // TODO: localization
-  unavailableStatus: string;
+  unavailableStatus = '';
 
   constructor(
     private translate: TranslateService,
@@ -67,8 +67,8 @@ export class VendorHeatingPage implements OnInit {
       message: this.translate.instant('HEATING.LOADING')
     }).then(loading => this.busyCtx.loading = loading);
     this.route.queryParams.subscribe(params => {
-      const state = this.router.getCurrentNavigation().extras.state;
-      if (state && state.device) {
+      const state = this.router.getCurrentNavigation()?.extras.state;
+      if (state?.device) {
         this.device = state.device;
       } else {
         // TODO: Show error to user?
@@ -87,6 +87,7 @@ export class VendorHeatingPage implements OnInit {
   }
 
   refresh() {
+    if (!this.device) { return; }
     this.busyBegin();
     this.nabtoService.invokeRpc(this.device.id, 'heatpump_get_full_state.json')
       .then(state => {
@@ -107,6 +108,7 @@ export class VendorHeatingPage implements OnInit {
   }
 
   activationToggled() {
+    if (!this.device) { return; }
     this.busyBegin();
     this.nabtoService.invokeRpc(
       this.device.id,
@@ -125,7 +127,7 @@ export class VendorHeatingPage implements OnInit {
   }
 
   increment() {
-    if (this.activated) { // we cannot disable tap events on icon in html
+    if (this.activated && this.temperature) { // we cannot disable tap events on icon in html
       if (this.temperature < this.maxTemp) {
         this.temperature++;
       }
@@ -134,7 +136,7 @@ export class VendorHeatingPage implements OnInit {
   }
 
   decrement() {
-    if (this.activated) { // we cannot disable tap events on icon in html
+    if (this.activated && this.temperature) { // we cannot disable tap events on icon in html
       if (this.temperature > this.minTemp) {
         this.temperature--;
       }
@@ -143,7 +145,7 @@ export class VendorHeatingPage implements OnInit {
   }
 
   updateTargetTemperature() {
-    if (isNaN(this.temperature)) {
+    if (isNaN(Number(this.temperature))) {
       return;
     }
 
@@ -153,6 +155,7 @@ export class VendorHeatingPage implements OnInit {
     const debounce = 200;
     window.clearTimeout(this.temperatureUpdateTimer);
     this.temperatureUpdateTimer = window.setTimeout(() => {
+      if (!this.device) { return; }
       this.busyBegin();
       this.nabtoService.invokeRpc(
         this.device.id,
@@ -169,6 +172,7 @@ export class VendorHeatingPage implements OnInit {
   }
 
   updateMode() {
+    if (!this.device || !this.mode) { return; }
     this.busyBegin();
     this.nabtoService.invokeRpc(
       this.device.id,
@@ -183,11 +187,11 @@ export class VendorHeatingPage implements OnInit {
     });
   }
 
-  mapDeviceMode(mode: DeviceMode): string {
-    return DeviceMode[mode] ?? '';
+  mapDeviceMode(mode: DeviceMode): DeviceModeString {
+    return (DeviceMode[mode] ?? '') as DeviceModeString;
   }
 
-  mapToDeviceMode(mode: string): DeviceMode {
+  mapToDeviceMode(mode: DeviceModeString): DeviceMode {
     return DeviceMode[mode] ?? -1;
   }
 
@@ -195,7 +199,7 @@ export class VendorHeatingPage implements OnInit {
     return Math.min(Math.max(tempFromDevice, this.minTemp), this.maxTemp);
   }
 
-  handleError(error) {
+  handleError(error: NabtoError) {
     if (error.code == NabtoError.Code.API_RPC_DEVICE_OFFLINE) {
       this.unavailableStatus = this.translate.instant('HEATING.STATUS_OFFLINE');
       this.offline = true;

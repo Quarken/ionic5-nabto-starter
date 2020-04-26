@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./device-settings.page.scss'],
 })
 export class DeviceSettingsPage implements OnInit {
-  device: NabtoDevice;
+  device?: NabtoDevice;
   firstView = true;
   hideQr = true;
   securityMessage: string;
@@ -26,11 +26,14 @@ export class DeviceSettingsPage implements OnInit {
     private clipboard: Clipboard,
     private toastCtrl: ToastController,
     private nabtoService: NabtoService
-  ) { }
+  ) {
+    this.securityMessage = '';
+    this.qrInput = '';
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      const state = this.router.getCurrentNavigation().extras.state;
+      const state = this.router.getCurrentNavigation()?.extras.state;
       if (state?.device) {
         this.device = state.device;
       } else {
@@ -42,12 +45,13 @@ export class DeviceSettingsPage implements OnInit {
   ionViewWillEnter() {
     this.readDeviceSecuritySettings();
     this.qrInput = JSON.stringify({
-      i: this.device.id,
-      n: this.device.name
+      i: this.device?.id,
+      n: this.device?.name
     });
   }
 
   readDeviceSecuritySettings() {
+    if (!this.device) { return; }
     this.nabtoService.readAllSecuritySettings(this.device)
       .then(() => this.updateSecurityMessage())
       .catch((error) => {
@@ -56,7 +60,7 @@ export class DeviceSettingsPage implements OnInit {
   }
 
   updateSecurityMessage() {
-    if (this.device.openForPairing) {
+    if (this.device?.openForPairing) {
       this.securityMessage = this.translate.instant('DEVICE_SETTINGS.TOAST_SECURITY_DEVICE_OPEN');
     } else {
       this.securityMessage = this.translate.instant('DEVICE_SETTINGS.TOAST_SECURITY_DEVICE_CLOSED');
@@ -64,11 +68,13 @@ export class DeviceSettingsPage implements OnInit {
   }
 
   copyDeviceId() {
+    if (!this.device) { return; }
     this.clipboard.copy(this.device.id);
     showToast(this.toastCtrl, this.translate.instant('DEVICE_SETTINGS.TOAST_COPY'));
   }
 
   saveProperties() {
+    if (!this.device) { return; }
     this.nabtoService.setSystemInfo(this.device)
       .then(() => {
         showToast(this.toastCtrl, this.translate.instant('DEVICE_SETTINGS.TOAST_PROPERTIES_SAVED'));

@@ -6,8 +6,6 @@ import { showToast } from '../util';
 import { TranslateService } from '@ngx-translate/core';
 import { NabtoDevice } from '../device.class';
 
-declare var NabtoError;
-
 @Component({
   selector: 'app-device-add',
   templateUrl: './device-add.component.html',

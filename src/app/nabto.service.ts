@@ -6,14 +6,16 @@ import { Subject } from 'rxjs';
 import { Bookmark, BookmarksService } from './bookmarks.service';
 import { Injectable } from '@angular/core';
 
+// TODO: Clean up the types in here so we don't use 'any'
+// TODO: Move strings that get displayed to the user out to the localization file?
+
 declare let nabto: any;
 declare let NabtoError: any;
 
-// TODO: Move strings that get displayed to the user out to the localization file?
 @Injectable()
 export class NabtoService {
   private pkPassword = 'empty'; // see comment on createKeyPair() below
-  private lastUser: string;
+  private lastUser = '';
   private initialized = false;
 
   constructor(private storage: Storage,
@@ -83,7 +85,7 @@ export class NabtoService {
 
   private doCreateKeyPair(username: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      nabto.createKeyPair(username, this.pkPassword, (error) => {
+      nabto.createKeyPair(username, this.pkPassword, (error: any) => {
         if (!error) {
           console.log('nabto.createKeyPair succeeded');
           this.storage.set('username', username);
@@ -106,7 +108,7 @@ export class NabtoService {
 
   private doGetFingerprint(username: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      nabto.getFingerprint(username, (err, result) => {
+      nabto.getFingerprint(username, (err: any, result: any) => {
         if (!err) {
           resolve(result);
         } else {
@@ -124,7 +126,7 @@ export class NabtoService {
           // throw, neither of the following checks are possible:
           //   if (nabto) { ... }
           //   if (typeof(nabto) !== 'undefined'))
-          nabto.startup((err) => {
+          nabto.startup((err: any) => {
             if (!err) {
               resolve();
             } else {
@@ -158,7 +160,7 @@ export class NabtoService {
       // waits for platform.ready
       this.startup().then(() => {
         // NABTO-1397: redundant startup (but idempotent), introduce plain nabtoOpenSession in Cordova
-        nabto.startupAndOpenProfile(certificate, this.pkPassword, (err) => {
+        nabto.startupAndOpenProfile(certificate, this.pkPassword, (err: any) => {
           if (!err) {
             this.initialized = true;
             console.log('successfully initialized nabto service');
@@ -206,7 +208,7 @@ export class NabtoService {
     return new Promise((resolve, reject) => {
       this.platform.ready().then(() => {
         this.initialized = false;
-        nabto.shutdown((error) => {
+        nabto.shutdown((error: any) => {
           if (!error) {
             this.log('shutdown ok');
             resolve(true);
@@ -343,7 +345,7 @@ export class NabtoService {
   private doPrepareInvoke(devices: string[]): Promise<any> {
     return new Promise((resolve, reject) => {
       this.platform.ready().then(() => {
-        nabto.prepareInvoke(devices, (error) => {
+        nabto.prepareInvoke(devices, (error: any) => {
           if (!error) {
             console.log(`Prepare invoke succeeded for ${JSON.stringify(devices)}`);
             resolve(devices);
@@ -502,14 +504,14 @@ export class NabtoService {
 
   private doInvokeRpc(id: string, request: string, paramString: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      nabto.rpcInvoke(`nabto://${id}/${request}?${paramString}`, (err, res) => {
+      nabto.rpcInvoke(`nabto://${id}/${request}?${paramString}`, (err: any, res: any) => {
         if (!err) {
           resolve(res.response);
         } else {
           if (err.code == NabtoError.Code.P2P_CONNECTION_PROBLEM) {
             // retry on this specific error (API will have flushed connection and re-connect)
             console.log('Retrying on error ' + err);
-            nabto.rpcInvoke(`nabto://${id}/${request}?${paramString}`, (err2, res2) => {
+            nabto.rpcInvoke(`nabto://${id}/${request}?${paramString}`, (err2: any, res2: any) => {
               if (!err2) {
                 resolve(res2.response);
               } else {
@@ -583,7 +585,7 @@ export class NabtoService {
     return new Promise((resolve, reject) => {
       this.startup().then(() => {
         // startup only resolves if nabto is ready and nabtoStartup() succeeds
-        nabto.versionString((err, res) => {
+        nabto.versionString((err: any, res: any) => {
           if (!err) {
             resolve(res);
           } else {

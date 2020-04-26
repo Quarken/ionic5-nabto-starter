@@ -17,7 +17,7 @@ export class Bookmark {
     this.id = id;
     this.name = name ? name : id;
     this.product = product ? product : 'Unknown';
-    this.iconUrl = undefined;
+    this.iconUrl = '';
   }
 }
 

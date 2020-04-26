@@ -7,8 +7,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProfileComponent } from '../profile/profile.component';
 import { Device } from '@ionic-native/device/ngx';
 
-declare var NabtoError;
-
 @Component({
   selector: 'app-app-settings',
   templateUrl: './app-settings.page.html',
@@ -30,6 +28,8 @@ export class AppSettingsPage implements OnInit {
     private toastCtrl: ToastController
   ) {
     this.dirty = false;
+    this.fingerprint = '';
+    this.keyName = '';
   }
 
   ngOnInit() {

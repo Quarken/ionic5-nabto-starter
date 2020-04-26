@@ -28,11 +28,12 @@ export class DiscoverPage implements OnInit {
     private router: Router,
     private nabtoService: NabtoService,
     private bookmarksService: BookmarksService
-  ) { }
-
-  ngOnInit() {
+  ) {
     this.deviceInfoSource = new Subject<NabtoDevice[]>();
     this.devices = this.deviceInfoSource.asObservable();
+  }
+
+  ngOnInit() {
   }
 
   ionViewDidEnter() {
