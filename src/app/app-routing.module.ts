@@ -21,6 +21,10 @@ const routes: Routes = [
     path: 'device-settings',
     loadChildren: () => import('./device-settings/device-settings.module').then( m => m.DeviceSettingsPageModule)
   },
+  {
+    path: 'security',
+    loadChildren: () => import('./security/security.module').then( m => m.SecurityPageModule)
+  },
 
 
 
