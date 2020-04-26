@@ -1,9 +1,55 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>security</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title translate>SECURITY.TITLE</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/overview']">
+        <ion-icon slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding" fullscreen>
+  <h2 translate>SECURITY.RA_HEADER</h2>
+  <p translate>SECURITY.RA_BODY</p>
+  <ion-item>
+    <ion-label translate>SECURITY.RA_LABEL</ion-label>
+    <ion-toggle [(ngModel)]="device.remoteAccessEnabled" (ionChange)="update()"></ion-toggle>
+  </ion-item>
 
+  <h2 translate>SECURITY.PAIRING_HEADER</h2>
+  <p translate>SECURITY.PAIRING_BODY</p>
+  <ion-item>
+    <ion-label translate>SECURITY.PAIRING_LABEL</ion-label>
+    <ion-toggle [(ngModel)]="device.openForPairing" (ionChange)="update()"></ion-toggle>
+  </ion-item>
+
+  <h2 translate>SECURITY.NEW_USER_RA_HEADER</h2>
+  <p translate>SECURITY.NEW_USER_RA_BODY</p>
+  <ion-item>
+    <ion-label translate>SECURITY.NEW_USER_RA_LABEL</ion-label>
+    <ion-toggle [disabled]="!(device.openForPairing && device.remoteAccessEnabled)"
+      [(ngModel)]="device.grantGuestRemoteAccess" (ionChange)="update()"></ion-toggle>
+  </ion-item>
+
+  <h2 translate>SECURITY.ACL_HEADER</h2>
+  <p translate>SECURITY.ACL_BODY</p>
+  <ion-list>
+    <ion-item *ngFor="let user of acl | async" (click)="aclEntryClicked(user)">
+      <ion-label>
+        <h2>{{user.name}}</h2>
+        <h3>
+          <ion-icon [name]="user.icon()"></ion-icon> &nbsp; {{ user.role() }} {{ user.niceAccessString() }}
+        </h3>
+        <p>{{ ('SECURITY.RSA_FP' | translate) + user.niceFingerprint() }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" color="light" (click)="addToAcl()" translate>
+    SECURITY.ACL_BUTTON
+  </ion-button>
 </ion-content>

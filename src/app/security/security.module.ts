@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { SecurityPageRoutingModule } from './security-routing.module';
 
 import { SecurityPage } from './security.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SecurityPageRoutingModule
+    SecurityPageRoutingModule,
+    TranslateModule
   ],
   declarations: [SecurityPage]
 })

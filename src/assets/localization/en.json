@@ -7,6 +7,7 @@
     "REFRESH": "Refresh",
     "SETTINGS": "Settings",
     "YES": "Yes",
+    "CONFIRM": "Confirm",
     "OVERVIEW": {
         "TITLE": "Overview",
         "NO_KNOWN_DEVICES": "No known devices",
@@ -27,7 +28,6 @@
         "BUTTON_RECREATE": "Re-create keypair for this {{platform}} device",
         "KNOWN_DEVICES": "Known devices",
         "BUTTON_KNOWN_DEVICES": "Clear list of known devices",
-        "ALERT_CONFIRM_HEADER": "Confirm",
         "ALERT_CLEAR_PROFILE": "Are you sure you want to remove the currently active keypair? You must factory reset devices that you are owner of to be owner again with the new key.",
         "ALERT_CLEAR_DEVICES": "Do you want to clear list of known devices?"
     },
@@ -94,6 +94,22 @@
         "TOAST_SECURITY_DEVICE_OPEN": "This device is currently open for pairing to grant new guests access.",
         "TOAST_SECURITY_DEVICE_CLOSED": "This device is closed for pairing, change this to grant new guests access.",
         "ERROR_SECURITY_SETTINGS": "Could not read security settings: "
+    },
+    "SECURITY": {
+        "TITLE": "Security settings",
+        "RA_HEADER": "Remote Access Master Switch",
+        "RA_BODY": "Allow remote access to this device. If switched off, nobody (not even you, the owner) can connect to the device. If switched on, you can control below who may connect.",
+        "RA_LABEL": "Enable remote access",
+        "PAIRING_HEADER": "Open For Local Pairing",
+        "PAIRING_BODY": "Allow users on the same local network to pair with device as guests. Guests can later be removed in the access control list below if you change your mind.",
+        "PAIRING_LABEL": "Open for pairing",
+        "NEW_USER_RA_HEADER": "New User Remote Access",
+        "NEW_USER_RA_BODY": "When adding new users as guests, allow them to later also access the device remotely (outside your local network). You can later change this for individual guests in the access control list below.",
+        "NEW_USER_RA_LABEL": "New user remote access",
+        "ACL_HEADER": "Access Control List",
+        "ACL_BODY": "Control who has access to your device.",
+        "RSA_FP": "RSA fingerprint: ",
+        "ACL_BUTTON": "Manually add to access control list"
     },
     "HEATING": {
         "COOL": "Cool",

@@ -82,7 +82,7 @@ export class AppSettingsPage implements OnInit {
 
   async clear(msg: string, clearHandler: () => void) {
     const alert = await this.alertCtrl.create({
-      header: this.translate.instant('APP_SETTINGS.ALERT_CONFIRM_HEADER'),
+      header: this.translate.instant('CONFIRM'),
       message: msg,
       buttons: [
         {

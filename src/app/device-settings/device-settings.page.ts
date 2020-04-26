@@ -4,7 +4,7 @@ import { NabtoDevice } from '../device.class';
 import { ToastController } from '@ionic/angular';
 import { showToast } from '../util';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -81,6 +81,15 @@ export class DeviceSettingsPage implements OnInit {
       }).catch((error) => {
         showToast(this.toastCtrl, error.message);
       });
+  }
+
+  navigateToSecurityPage() {
+    const extras: NavigationExtras = {
+      state: {
+        device: this.device
+      }
+    };
+    this.router.navigate(['security'], extras);
   }
 
   toggleQr() {

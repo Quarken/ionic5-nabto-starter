@@ -47,7 +47,7 @@
   <h2 translate>DEVICE_SETTINGS.SECURITY_HEADER</h2>
   <p>{{securityMessage}}</p>
 
-  <ion-button [disabled]="!device.currentUserIsOwner" type="submit" expand="block" (click)="showSecurityPage()">
+  <ion-button [disabled]="!device.currentUserIsOwner" type="submit" expand="block" (click)="navigateToSecurityPage()">
     <ion-icon name="lock"></ion-icon>&nbsp;{{ 'DEVICE_SETTINGS.BUTTON_SECURITY' | translate }}
   </ion-button>
 </ion-content>
