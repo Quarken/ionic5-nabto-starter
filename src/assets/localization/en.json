@@ -86,9 +86,14 @@
         "USER_IS_GUEST": "Only the owner of this device can change settings, you currently only have guest permissions. If you actually are the owner, you must perform a factory reset of the device.",
         "PROPERTIES_HEADER": "Properties",
         "NAME_LABEL": "Enter the name of this device, e.g. \"Kitchen\"",
+        "TOAST_PROPERTIES_SAVED": "Device updated!",
         "BUTTON_COPY": "Copy",
+        "TOAST_COPY": "Device ID copied to clipboard.",
         "SECURITY_HEADER": "Security",
-        "BUTTON_SECURITY": "Edit security settings"
+        "BUTTON_SECURITY": "Edit security settings",
+        "TOAST_SECURITY_DEVICE_OPEN": "This device is currently open for pairing to grant new guests access.",
+        "TOAST_SECURITY_DEVICE_CLOSED": "This device is closed for pairing, change this to grant new guests access.",
+        "ERROR_SECURITY_SETTINGS": "Could not read security settings: "
     },
     "HEATING": {
         "COOL": "Cool",
