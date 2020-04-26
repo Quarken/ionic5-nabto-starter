@@ -1,9 +1,26 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>show-fp-qr</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title translate>SHOW_FP_QR.TITLE</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/overview']">
+        <ion-icon slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding" fullscreen>
+  <p translate>SHOW_FP_QR.QR_DESC</p>
+    <qrcode class="ion-text-center" [qrdata]="qrInput"></qrcode>
+  <pre style="white-space: pre-wrap;">
+    {{fingerprint}}
+  </pre>
 
+  <p translate>SHOW_FP_QR.FP_DESC</p>
+  <ion-button color="light" expand="block" (click)="copyFingerprint()" translate>
+    SHOW_FP_QR.FP_BUTTON
+  </ion-button>
 </ion-content>

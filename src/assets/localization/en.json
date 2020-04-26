@@ -68,6 +68,13 @@
         "DESCRIPTION": "Enter the name to identify this {{platform}} device when communicating with other devices.",
         "NAME": "Name to associate with keypair"
     },
+    "SHOW_FP_QR": {
+        "TITLE": "Share fingerprint",
+        "QR_DESC": "The device owner can scan the QR code to grant you access to a device (that is, add your public key fingerprint to the device's access control list)",
+        "FP_DESC": "You can also copy the fingerprint and send it to the device owner using a trusted means of communication",
+        "FP_BUTTON": "Copy fingerprint to clipboard",
+        "FP_TOAST": "Fingerprint copied to clipboard"
+    },
     "HELP": {
         "TITLE": "Help",
         "INTRO_HEADER": "Introduction",

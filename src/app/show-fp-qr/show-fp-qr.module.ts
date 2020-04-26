@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { ShowFpQrPageRoutingModule } from './show-fp-qr-routing.module';
 
 import { ShowFpQrPage } from './show-fp-qr.page';
+import { TranslateModule } from '@ngx-translate/core';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ShowFpQrPageRoutingModule
+    ShowFpQrPageRoutingModule,
+    TranslateModule,
+    QRCodeModule
   ],
   declarations: [ShowFpQrPage]
 })

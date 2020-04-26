@@ -80,8 +80,4 @@ export class DeviceAddComponent implements OnInit {
   clear() {
     this.deviceId = '';
   }
-
-  shareFingerprint() {
-    // TODO: ShowFpQrPage
-  }
 }

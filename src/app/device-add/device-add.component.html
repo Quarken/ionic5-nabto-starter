@@ -36,7 +36,7 @@
     </ion-card-header>
     <ion-card-content>
       <div [innerHTML]="'ADD_DEVICE.AC_DESC' | translate"></div>
-      <ion-button translate expand="block" color="light" (click)="shareFingerprint()">
+      <ion-button translate expand="block" color="light" [routerLink]="['/show-fp-qr']">
         ADD_DEVICE.AC_BUTTON
       </ion-button>
     </ion-card-content>
