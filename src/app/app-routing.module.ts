@@ -39,6 +39,14 @@ const routes: Routes = [
     path: 'show-fp-qr',
     loadChildren: () => import('./show-fp-qr/show-fp-qr.module').then(m => m.ShowFpQrPageModule)
   },
+  {
+    path: 'acl-add',
+    loadChildren: () => import('./acl-add/acl-add.module').then(m => m.AclAddPageModule)
+  },
+  {
+    path: 'acl-edit',
+    loadChildren: () => import('./acl-edit/acl-edit.module').then(m => m.AclEditPageModule)
+  },
 
 
 
